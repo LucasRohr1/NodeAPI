@@ -1,4 +1,13 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
+const comparePasswords = (password, hash) => {
+  return bcrypt.compare(password, hash);
+}
+
+export const hasPassword = (password) => {
+    return bcrypt.hash(password, 5)
+}
 
 export const createJWT = (user) => {
   const token = jwt.sign({ 
@@ -14,7 +23,7 @@ export const protect = (req, res, next) => {
   const bearer = req.headers.authorization;
 
   if (!bearer) {
-    
+
     res.status(401);
     res.send("Not authorized");
     return;
