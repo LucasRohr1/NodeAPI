@@ -63,6 +63,6 @@ export const deleteProduct = async (req, res) => {
     
     res.json({
         data: deletedProduct,
-        message: `Product ${deletedProduct.name} deleted successfully`
+        message: `Product: ${deletedProduct.name} deleted successfully`
     });
 }
