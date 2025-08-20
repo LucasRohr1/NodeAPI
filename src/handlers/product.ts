@@ -13,16 +13,21 @@ export const getProducts = async (req, res) => {
     res.json({data: user.products});
 }
 
-export const getOneProduct = async (req, res) => {
+export const getOneProduct = async (req, res, next) => {
 
-    const productId = req.params.id;
-    const product = await prisma.product.findFirst({
-        where: { 
-            id: productId,           
-            belongsToId: req.user.id
-        }       
-    })
-    res.json({data: product});
+    try{
+        const productId = req.params.id;
+        const product = await prisma.product.findFirst({
+            where: { 
+                id: productId,           
+                belongsToId: req.user.id
+            }       
+        })
+        res.json({data: product});
+        
+    }catch(e){
+        next(e);
+    }
 }
 
 export const createProduct = async (req, res) => {

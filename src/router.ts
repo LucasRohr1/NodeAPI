@@ -69,6 +69,10 @@ router.post('/updateitem',
 
 router.delete('/updateitem/:id', () => {});
 
+router.use((error, req, res, next) => {
 
+    console.log(error);
+    res.status(500).json({ Message: 'Internal Server Error' });
+});
 
 export default router;
